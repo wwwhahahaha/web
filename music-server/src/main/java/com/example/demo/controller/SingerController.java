@@ -24,9 +24,18 @@ public class SingerController {
 
     @Autowired
     private SingerServiceImpl singerService;
+
+    @Configuration
+    public class MyPicConfig implements WebMvcConfigurer {
+        @Override
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:C:\\Users\\传说\\Documents\\音乐网站\\music-website-master\\music-server\\data\\img\\singerPic\\");
+        }
+    }
+
 //    添加歌手
     @ResponseBody
-    @RequestMapping(value = "/api/addSinger", method = RequestMethod.POST)
+    @RequestMapping(value = "/singer/add", method = RequestMethod.POST)
     public Object addSinger(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String name = req.getParameter("name").trim();
@@ -51,7 +60,7 @@ public class SingerController {
         singer.setLocation(location);
         singer.setIntroduction(introduction);
 
-        boolean res = singerService.ifAdd(singer);
+        boolean res = singerService.addSinger(singer);
         if (res){
             jsonObject.put("code", 1);
             jsonObject.put("msg", "添加成功");
@@ -63,17 +72,37 @@ public class SingerController {
         }
     }
 
+//    返回所有歌手
+    @RequestMapping(value = "/singer", method = RequestMethod.GET)
+    public Object allSinger(){
+        return singerService.allSinger();
+    }
+
+//    根据歌手名查找歌手
+    @RequestMapping(value = "/singer/name/detail", method = RequestMethod.GET)
+    public Object singerOfName(HttpServletRequest req){
+        String name = req.getParameter("name").trim();
+        return singerService.singerOfName(name);
+    }
+
+//    根据歌手性别查找歌手
+    @RequestMapping(value = "/singer/sex/detail", method = RequestMethod.GET)
+    public Object singerOfSex(HttpServletRequest req){
+        String sex = req.getParameter("sex").trim();
+        return singerService.singerOfSex(Integer.parseInt(sex));
+    }
+
 //    删除歌手
-    @RequestMapping(value = "/api/deleteSingers", method = RequestMethod.GET)
-    public Object deleteSingers(HttpServletRequest req){
+    @RequestMapping(value = "/singer/delete", method = RequestMethod.GET)
+    public Object deleteSinger(HttpServletRequest req){
         String id = req.getParameter("id");
         return singerService.deleteSinger(Integer.parseInt(id));
     }
 
 //    更新歌手信息
     @ResponseBody
-    @RequestMapping(value = "/api/updateSingerMsgs", method = RequestMethod.POST)
-    public Object updateSingerMsgs(HttpServletRequest req){
+    @RequestMapping(value = "/singer/update", method = RequestMethod.POST)
+    public Object updateSingerMsg(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String id = req.getParameter("id").trim();
         String name = req.getParameter("name").trim();
@@ -111,9 +140,10 @@ public class SingerController {
         }
     }
 
+//    更新歌手头像
     @ResponseBody
-    @RequestMapping(value = "/api/updateSingerImg", method = RequestMethod.POST)
-    public Object updateSingerImg(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id")int id){
+    @RequestMapping(value = "/singer/avatar/update", method = RequestMethod.POST)
+    public Object updateSingerPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id")int id){
         JSONObject jsonObject = new JSONObject();
 
         if (avatorFile.isEmpty()) {
@@ -135,7 +165,7 @@ public class SingerController {
             Singer singer = new Singer();
             singer.setId(id);
             singer.setPic(storeAvatorPath);
-            boolean res = singerService.updateSingerImg(singer);
+            boolean res = singerService.updateSingerPic(singer);
             if (res){
                 jsonObject.put("code", 1);
                 jsonObject.put("pic", storeAvatorPath);
@@ -154,32 +184,5 @@ public class SingerController {
             return jsonObject;
         }
     }
-
-    @Configuration
-    public class MyPicConfig implements WebMvcConfigurer {
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:C:\\Users\\传说\\Documents\\音乐网站\\music-website-master\\music-server\\data\\img\\singerPic\\");
-        }
-    }
-
-    //    返回所有歌手
-    @RequestMapping(value = "/listSingers", method = RequestMethod.GET)
-    public Object toSingerList(){
-        return singerService.listSingers();
-    }
-
-    //    根据歌手名查找歌手
-    @RequestMapping(value = "/searachSingers", method = RequestMethod.GET)
-    public Object searachSingers(HttpServletRequest req){
-        String name = req.getParameter("name").trim();
-        return singerService.searachSinger(name);
-    }
-
-    //    根据歌手性别查找歌手
-    @RequestMapping(value = "/api/singer", method = RequestMethod.GET)
-    public Object SingerSex(HttpServletRequest req){
-        String sex = req.getParameter("sex").trim();
-        return singerService.singerSex(Integer.parseInt(sex));
-    }
 }
+

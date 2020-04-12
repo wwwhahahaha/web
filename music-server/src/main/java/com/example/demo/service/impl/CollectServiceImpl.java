@@ -15,12 +15,12 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public boolean addCollection(Collect collect) {
-        return collectMapper.addCollection(collect) > 0 ? true:false;
+        return collectMapper.insertSelective(collect) > 0 ? true:false;
     }
 
     @Override
-    public boolean existSongId(Integer songId) {
-        return collectMapper.existSongId(songId)>0 ? true:false;
+    public boolean existSongId(Integer userId, Integer songId) {
+        return collectMapper.existSongId(userId, songId)>0 ? true:false;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public boolean deleteCollect(Integer id) {
-        return collectMapper.deleteCollect(id) >0 ?true:false;
+    public boolean deleteCollect(Integer songId) {
+        return collectMapper.deleteCollect(songId) >0 ?true:false;
     }
 
     @Override
@@ -41,9 +41,9 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public List<Collect> myCollectOfSongs(Integer userId)
+    public List<Collect> collectionOfUser(Integer userId)
 
     {
-        return collectMapper.myCollectOfSongs(userId);
+        return collectMapper.collectionOfUser(userId);
     }
 }

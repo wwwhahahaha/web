@@ -8,13 +8,13 @@ public interface CollectService {
 
     boolean addCollection(Collect collect);
 
-    boolean existSongId(Integer songId);
+    boolean existSongId(Integer userId, Integer songId);
 
     boolean updateCollectMsg(Collect collect);
 
-    boolean deleteCollect(Integer id);
+    boolean deleteCollect(Integer songId);
 
     List<Collect> allCollect();
 
-    List<Collect> myCollectOfSongs(Integer userId);
+    List<Collect> collectionOfUser(Integer userId);
 }
