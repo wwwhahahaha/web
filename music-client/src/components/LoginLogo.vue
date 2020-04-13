@@ -18,7 +18,7 @@ export default {
 .login-logo{
   background-color: #2aa3ef;
   height: 100vh;
-  width: 600px;
+  width: 1500px;
   overflow: hidden;
 }
 .item-logo {

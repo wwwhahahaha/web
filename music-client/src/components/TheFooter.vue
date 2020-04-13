@@ -13,8 +13,7 @@ export default {
     return {
       list: [
         `关于 | 帮助 | 条款 | 反馈`,
-        `Copyright © 2019`,
-        `Designed by Yin-Hongwei`
+        `Copyright © 2020`,
       ]
     }
   }

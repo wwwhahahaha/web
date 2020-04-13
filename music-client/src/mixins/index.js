@@ -1,9 +1,19 @@
-import axios from 'axios'
 export const mixin = {
   methods: {
+    // 提示信息
+    notify (title, type) {
+      this.$notify({
+        title: title,
+        type: type
+      })
+    },
     // 获取图片信息
     attachImageUrl (srcUrl) {
-      return this.$store.state.HOST + srcUrl || '../assets/img/user.jpg'
+      return srcUrl ? this.$store.state.configure.HOST + srcUrl || '../assets/img/user.jpg' : ''
+    },
+    attachBirth (val) {
+      let birth = String(val).match(/[0-9-]+(?=\s)/)
+      return Array.isArray(birth) ? birth[0] : birth
     },
     // 得到名字后部分
     replaceFName (str) {
@@ -17,28 +27,24 @@ export const mixin = {
     },
     // 播放
     toplay: function (id, url, pic, index, name, lyric) {
-      // console.log(lyric)
       this.$store.commit('setId', id)
-      window.sessionStorage.setItem('id', JSON.stringify(id))
       this.$store.commit('setListIndex', index)
-      window.sessionStorage.setItem('listIndex', JSON.stringify(index))
-      this.$store.commit('setUrl', this.$store.state.HOST + url)
-      window.sessionStorage.setItem('url', JSON.stringify(this.$store.state.HOST + url))
-      this.$store.commit('setpicUrl', this.$store.state.HOST + pic)
-      window.sessionStorage.setItem('picUrl', JSON.stringify(this.$store.state.HOST + pic))
+      this.$store.commit('setUrl', this.$store.state.configure.HOST + url)
+      this.$store.commit('setpicUrl', this.$store.state.configure.HOST + pic)
       this.$store.commit('setTitle', this.replaceFName(name))
-      window.sessionStorage.setItem('title', JSON.stringify(this.replaceFName(name)))
       this.$store.commit('setArtist', this.replaceLName(name))
-      window.sessionStorage.setItem('artist', JSON.stringify(this.replaceLName(name)))
       this.$store.commit('setLyric', this.parseLyric(lyric))
-      window.sessionStorage.setItem('lyric', JSON.stringify(this.parseLyric(lyric)))
-      // console.log(this.$store.state.playing['songsList'])
     },
     // 解析歌词
     parseLyric (text) {
       let lines = text.split('\n')
       let pattern = /\[\d{2}:\d{2}.(\d{3}|\d{2})\]/g
       let result = []
+
+      // 对于歌词格式不对的特殊处理
+      if (!(/\[.+\]/.test(text))) {
+        return [[0, text]]
+      }
 
       while (!pattern.test(lines[0])) {
         lines = lines.slice(1)
@@ -66,27 +72,19 @@ export const mixin = {
     getSong () {
       if (!this.$route.query.keywords) {
         this.$store.commit('setListOfSongs', [])
-        this.$notify({
-          title: '您输入内容为空',
-          type: 'warning'
-        })
+        this.notify('您输入内容为空', 'warning')
       } else {
-        let _this = this
-        axios.get(`${_this.$store.state.HOST}/listSongsOfSearch?name=${_this.$route.query.keywords}`)
-          .then(function (res) {
+        this.$api.songAPI.getSongOfSingerName(this.$route.query.keywords)
+          .then(res => {
             if (!res.data.length) {
-              _this.$store.commit('setListOfSongs', [])
-              _this.$notify({
-                title: '系统暂无该歌曲',
-                type: 'warning'
-              })
+              this.$store.commit('setListOfSongs', [])
+              this.notify('系统暂无该歌曲', 'warning')
             } else {
-              _this.$store.commit('setListOfSongs', res.data)
-              window.sessionStorage.setItem('listOfSongs', JSON.stringify(res.data))
+              this.$store.commit('setListOfSongs', res.data)
             }
           })
-          .catch(function (error) {
-            console.log(error)
+          .catch(err => {
+            console.log(err)
           })
       }
     }

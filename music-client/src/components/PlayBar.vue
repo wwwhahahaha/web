@@ -25,7 +25,7 @@
         </svg>
       </div>
       <!--歌曲图片-->
-      <div class="item-img" @click="goPlayerPage()">
+      <div class="item-img" @click="goPlayerPage">
          <img :src=picUrl alt="">
       </div>
       <!--播放进度-->
@@ -52,7 +52,7 @@
         <div class="left-time">{{ songTime }}</div>
       </div>
       <!--添加-->
-      <div class="item" @click="collection()">
+      <div class="item" @click="collection">
         <el-button plain style="border: 0;">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-xihuan-shi"></use>
@@ -60,7 +60,7 @@
         </el-button>
       </div>
       <!--下载-->
-      <div class="item" @click="down">
+      <div class="item" @click="download">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-xiazai"></use>
         </svg>
@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 import { mixin } from '../mixins'
 
@@ -96,12 +95,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'loginIn',
-      'userId',
+      'loginIn', // 用户登录状态
+      'userId', // 用户 id
       'isPlay', // 播放状态
       'playButtonUrl', // 播放状态的图标
       'id', // 音乐id
-      'url',
+      'url', // 音乐地址
       'title', // 歌名
       'artist', // 歌手名
       'picUrl', // 歌曲图片
@@ -118,10 +117,8 @@ export default {
     isPlay (val) {
       if (val) {
         this.$store.commit('setPlayButtonUrl', '#icon-zanting')
-        window.sessionStorage.setItem('playButtonUrl', JSON.stringify('#icon-zanting'))
       } else {
         this.$store.commit('setPlayButtonUrl', '#icon-bofang')
-        window.sessionStorage.setItem('playButtonUrl', JSON.stringify('#icon-bofang'))
       }
     },
     // 播放时间的开始和结束
@@ -142,17 +139,12 @@ export default {
   },
   methods: {
     // 下载
-    down () {
-      let _this = this
-      axios({
-        method: 'get',
-        url: _this.url,
-        responseType: 'blob'
-      })
+    download () {
+      this.$api.songAPI.download(this.url)
         .then(res => {
           let content = res.data
           var eleLink = document.createElement('a')
-          eleLink.download = `${_this.artist}-${_this.title}.mp3`
+          eleLink.download = `${this.artist}-${this.title}.mp3`
           eleLink.style.display = 'none'
           // 字符内容转变成blob地址
           var blob = new Blob([content])
@@ -163,24 +155,23 @@ export default {
           // 然后移除
           document.body.removeChild(eleLink)
         })
-        .catch(failResponse => {})
+        .catch(err => {
+          console.log(err)
+        })
     },
     changeAside () {
       let temp = !this.showAside
       this.$store.commit('setShowAside', temp)
-      window.sessionStorage.setItem('showAside', JSON.stringify(temp))
     },
-    // 控制音乐播放/暂停
+    // 控制音乐播放 / 暂停
     togglePlay () {
       if (this.isPlay) {
         this.$store.commit('setIsPlay', false)
-        window.sessionStorage.setItem('isPlay', JSON.stringify(false))
       } else {
         this.$store.commit('setIsPlay', true)
-        window.sessionStorage.setItem('isPlay', JSON.stringify(true))
       }
     },
-    //  解析播放时间
+    // 解析播放时间
     formatSeconds (value) {
       let theTime = parseInt(value)
       let theTime1 = 0
@@ -220,15 +211,16 @@ export default {
       }
       return result
     },
-    //  拖拽开始
+    // 拖拽开始
     mousedown (e) {
       this.mouseStartX = e.clientX
       this.tag = true
     },
+    // 拖拽结束
     mouseup () {
       this.tag = false
     },
-    //  拖拽ing
+    // 拖拽中
     mousemove (e) {
       if (!this.duration) {
         return false
@@ -252,7 +244,6 @@ export default {
     changeTime (percent) {
       let newCurTime = this.duration * (percent * 0.01)
       this.$store.commit('setChangeTime', newCurTime)
-      window.sessionStorage.setItem('changeTime', JSON.stringify(newCurTime))
     },
     updatemove (e) {
       if (!this.tag) {
@@ -273,11 +264,9 @@ export default {
       if (this.listIndex !== -1 && this.listOfSongs.length > 1) {
         if (this.listIndex > 0) {
           this.$store.commit('setListIndex', this.listIndex - 1)
-          window.sessionStorage.setItem('listIndex', JSON.stringify(this.listIndex - 1))
           this.toPlay(this.listOfSongs[this.listIndex].url)
         } else {
           this.$store.commit('setListIndex', this.listOfSongs.length - 1)
-          window.sessionStorage.setItem('listIndex', JSON.stringify(this.listOfSongs.length - 1))
           this.toPlay(this.listOfSongs[this.listIndex].url)
         }
       }
@@ -287,58 +276,36 @@ export default {
       if (this.listIndex !== -1 && this.listOfSongs.length > 1) {
         if (this.listIndex < this.listOfSongs.length - 1) {
           this.$store.commit('setListIndex', this.listIndex + 1)
-          window.sessionStorage.setItem('listIndex', JSON.stringify(this.listIndex - 1))
           this.toPlay(this.listOfSongs[this.listIndex].url)
         } else {
           this.$store.commit('setListIndex', 0)
-          window.sessionStorage.setItem('listIndex', JSON.stringify(0))
           this.toPlay(this.listOfSongs[0].url)
         }
       }
     },
-    updateMsg () {
-      this.$store.commit('setId', this.listOfSongs[this.listIndex].id)
-      window.sessionStorage.setItem('id', JSON.stringify(this.listOfSongs[this.listIndex].id))
-      this.$store.commit('setpicUrl', this.$store.state.HOST + this.listOfSongs[this.listIndex].pic)
-      window.sessionStorage.setItem('picUrl', JSON.stringify(this.$store.state.HOST + this.listOfSongs[this.listIndex].pic))
-      this.$store.commit('setTitle', this.replaceFName(this.listOfSongs[this.listIndex].name))
-      window.sessionStorage.setItem('title', JSON.stringify(this.replaceFName(this.listOfSongs[this.listIndex].name)))
-      this.$store.commit('setArtist', this.replaceLName(this.listOfSongs[this.listIndex].name))
-      window.sessionStorage.setItem('artist', JSON.stringify(this.replaceLName(this.listOfSongs[this.listIndex].name)))
-      this.$store.commit('setLyric', this.parseLyric(this.listOfSongs[this.listIndex].lyric))
-      window.sessionStorage.setItem('lyric', JSON.stringify(this.parseLyric(this.listOfSongs[this.listIndex].lyric)))
-    },
     // 选中播放
     toPlay (url) {
       if (url && url !== this.url) {
-        this.updateMsg()
-        this.$store.commit('setUrl', this.$store.state.HOST + url)
-        window.sessionStorage.setItem('url', JSON.stringify(this.$store.state.HOST + url))
+        this.$store.commit('setId', this.listOfSongs[this.listIndex].id)
+        this.$store.commit('setUrl', this.$store.state.configure.HOST + url)
+        this.$store.commit('setpicUrl', this.$store.state.configure.HOST + this.listOfSongs[this.listIndex].pic)
+        this.$store.commit('setTitle', this.replaceFName(this.listOfSongs[this.listIndex].name))
+        this.$store.commit('setArtist', this.replaceLName(this.listOfSongs[this.listIndex].name))
+        this.$store.commit('setLyric', this.parseLyric(this.listOfSongs[this.listIndex].lyric))
       }
     },
     goPlayerPage () {
-      this.$router.push({path: `/player-page/${this.id}`})
+      this.$router.push({path: `/lyric/${this.id}`})
     },
     collection () {
       if (this.loginIn) {
         // 0 代表歌曲， 1 代表歌单
-        let _this = this
-        var params = new URLSearchParams()
-        params.append('userId', _this.userId)
-        params.append('type', 0)
-        params.append('songId', _this.id || '')
-        axios.post(`${_this.$store.state.HOST}/api/collectionList`, params)
+        this.$api.collectionAPI.setCollection(this.userId, 0, this.id)
           .then(res => {
             if (res.data.code === 1) {
-              this.$notify({
-                title: '收藏成功',
-                type: 'success'
-              })
+              this.notify('收藏成功', 'success')
             } else if (res.data.code === 2) {
-              this.$notify({
-                title: '已收藏',
-                type: 'warning'
-              })
+              this.notify('已收藏', 'warning')
             } else {
               this.$notify.error({
                 title: '收藏失败',
@@ -346,12 +313,11 @@ export default {
               })
             }
           })
-          .catch(failResponse => {})
+          .catch(err => {
+            console.log(err)
+          })
       } else {
-        this.$notify({
-          title: '请先登录',
-          type: 'warning'
-        })
+        this.notify('请先登录', 'warning')
       }
     }
   }
