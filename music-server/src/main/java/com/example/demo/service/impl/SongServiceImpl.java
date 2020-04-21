@@ -14,6 +14,10 @@ public class SongServiceImpl implements SongService {
     @Autowired
     private SongMapper songMapper;
 
+    public boolean selectByPrimaryKey(Integer id){
+        return songMapper.selectByPrimaryKey(id)!=null ?true:false;
+    }
+
     @Override
     public List<Song> allSong()
     {

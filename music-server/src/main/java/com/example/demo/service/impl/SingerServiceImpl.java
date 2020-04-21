@@ -14,6 +14,10 @@ public class SingerServiceImpl implements SingerService{
     @Autowired
     private SingerMapper singerMapper;
 
+    public boolean selectByPrimaryKey(Integer id){
+        return singerMapper.selectByPrimaryKey(id)!=null ?true:false;
+    }
+
     @Override
     public boolean updateSingerMsg(Singer singer) {
         return singerMapper.updateSingerMsg(singer) >0 ?true:false;

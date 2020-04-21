@@ -14,6 +14,9 @@ public class SongListServiceImpl implements SongListService {
     @Autowired
     private SongListMapper songListMapper;
 
+    public boolean selectByPrimaryKey(Integer id){
+        return songListMapper.selectByPrimaryKey(id)!=null ?true:false;
+    }
     @Override
     public boolean updateSongListMsg(SongList songList) {
         return songListMapper.updateSongListMsg(songList) >0 ?true:false;

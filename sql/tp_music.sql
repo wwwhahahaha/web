@@ -1,8 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.21, for macos10.13 (x86_64)
---
--- Host: localhost    Database: tp_music
--- ------------------------------------------------------
--- Server version	5.7.21
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
