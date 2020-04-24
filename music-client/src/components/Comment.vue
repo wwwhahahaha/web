@@ -79,6 +79,7 @@ export default {
   methods: {
     // 获取所有评论
     getComment () {
+      console.log('id:'+this.playId)
       this.$api.commentAPI.getAllComment(this.type, this.playId)
         .then(res => {
           this.commentList = res.data

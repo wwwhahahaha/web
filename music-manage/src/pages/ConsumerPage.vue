@@ -8,7 +8,7 @@
       </div>
       <el-table :data="data" border size="mini" style="width: 100%" ref="multipleTable" height="550px" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="40" align="center"></el-table-column>
-        <el-table-column label="歌手图片" width="102" align="center">
+        <el-table-column label="用户图片" width="102" align="center">
           <template slot-scope="scope">
             <img :src="getUrl(scope.row.avator)" alt="" style="width: 80px;"/>
             <el-upload

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta charset="utf-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=7" /> 
+  <title>网易云音乐</title> 
+  <style type="text/css">
+/* Reset */
+body,html,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,header,menu,section,p,input{padding:0;margin:0;}
+body{font-family:Microsoft Yahei, Arial, Helvetica, sans-serif; }
+body,textarea,select,input,button{font-size:12px; color:#333;}
+html,body{width:100%; height:100%; border:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+em,i{font-style:normal;text-align:left;}
+html,body,img,iframe{border:0;}
+textarea{resize:none; overflow:auto;}
+input:focus,textarea:focus,span:focus{outline:none;} /* 去掉chrome下input和textarea的选中发光样式 */
+li,s{list-style:none;}
+img, .txt{border:0;}
+body,div,span,p,i,em,strong{cursor:default;}
+a[hidefocus]{outline:none;}
+a{text-decoration:none;}
+a:hover{text-decoration:underline;}
+a,a *, .f-hand, .f-hand *{cursor:pointer;}
+table{ border-collapse:collapse; table-layout:fixed;}
+/* Function */
+.f-cb:after{clear:both;content:'.';display:block;height:0;visibility:hidden;}/* 清浮动 */
+.f-cb{*zoom:1;}
+.f-alpha{_behavior:url(//music.163.com/style/css/iepngfix.htc);}
+.f-ib{display:inline-block; *display:inline; *zoom:1}
+.f-pr{position:relative;zoom:1;}
+.f-pa{position:absolute;}
+.f-hide,.js-hide{display:none;}
+.f-vhide,.js-vhide{visibility:hidden;}
+.f-oh{overflow:hidden;}
+.f-fl{float:left;}
+.f-fr{float:right;}
+.f-sep{margin-left:5px; margin-right:5px;}
+.f-ff0{font-family:Arial, Helvetica, sans-serif;}/* Arial */
+.f-ff1{font-family:simsun,\5b8b\4f53;}/* 宋体 */
+.f-fs0{font-size:12px;}
+.f-fs1{font-size:14px;}
+.f-fs2{font-size:16px;}
+.f-fs3{font-size:18px;}
+.f-fw0{font-weight:normal;}
+.f-fw1{font-weight:bold;}
+.f-mgt5{margin-top:5px;}
+.f-ul, .f-ul:hover{ text-decoration:underline;}
+.f-noul,.f-noul:hover{ text-decoration:none;}
+.f-pre{word-wrap:break-word; word-break:break-all;}
+.f-thide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.f-nw{white-space:nowrap;}
+.f-tid{text-indent:-9999px;}
+.f-nobd{border:none;}
+.f-tc{text-align:center;}
+.f-vam{vertical-align: middle;}
+/* Font */
+.s-fc0{color:#fff}
+.s-fc2{color:#333;}
+a.s-fc2:hover{color:#cc110e;}
+.s-fc3{color:#666;}/* text */
+.s-fc4{color:#999}/* placeholder */
+.s-fc5{color:#aaa;}/* time */
+.s-fc6{color:#cc110e;}/* red1 */
+.s-fc7{color:#e3324b;}/* err */
+.s-fc8{color:#2a9000;}
+.s-fc9{color:#1d359e;}
+
+input:-moz-placeholder{color:#b3b3b3;}
+input::-ms-input-placeholder{color:#b3b3b3;}
+input::-webkit-input-placeholder{color:#b3b3b3}
+textarea:-moz-placeholder{color:#b3b3b3;}
+textarea::-ms-input-placeholder{color:#b3b3b3;}
+textarea::-webkit-input-placeholder{color:#b3b3b3;}
+.js-placeholder{color:#b3b3b3;}
+
+
+/* Background */
+.w-icn{background:url(//s1.music.126.net/style/web/img/icon.png?v=1) no-repeat;}
+.w-icn-1{width:90px; height:90px; background-position:0 0;}/* √ */
+.w-icn-2{width:90px; height:90px; background-position:0 -110px;}/* X */
+
+.s-bg,.txt-lg{ background-image:url(//s1.music.126.net/style/web/img/sprite.png?v=1); background-repeat:no-repeat;}
+.s-bg-1{ background-position:0 -550px; background-repeat:repeat-x;}/* topbg */
+.s-bg-2{ background-position:0 9px;}/* logo */
+.s-bg-3{ background-position:0 -53px;}/* 首页 */
+.s-bg-3:hover{ background-position:0 -125px;}
+.s-bg-4{ background-position:-105px -53px;}/* 分享歌单 */
+.s-bg-4:hover{background-position:-105px -125px;}
+.s-bg-5{width:82px; height:37px; background-position:0 -247px;}/* 登录 */
+.s-bg-5:hover{ background-position:-90px -247px;}
+.s-bg-6{background-position:0 -630px; background-repeat:repeat-x;}
+.s-bg-7{background-position:right -289px;}
+.s-bg-8{background-position:0 -360px;}/* 合作伙伴 */
+.s-bg-9{ background-position:0 -394px;}/* 二维码 手机号输入框 */
+.s-bg-10{width:20px; height:20px; background-position:0 9999px;}/* go按钮 */
+.s-bg-10:hover{ background-position:-83px -363px;}
+.s-bg-11{background-position:0 -485px; background-repeat:repeat-x;}/* lay head */
+
+.s-vbg{ background:url(//s1.music.126.net/style/web/img/sprite_invite.png?=1) no-repeat 0 9999px;}
+.s-vbg-10{background-position:-130px -212px;}/* number bg */
+.s-vbg-11:hover{background-position:-350px -220px; text-decoration:none;}/* go */
+
+.m-laylgn, .m-laylgn2, .w-codelay{z-index:1000; background:url(//s1.music.126.net/style/web/img/layer_bg.png?=1) no-repeat; _background-image:url(//s1.music.126.net/style/web/img/layer_bg_png8.png?v=1);}
+.w-ipt,.w-txt,.w-area{ background:#fff url(//s1.music.126.net/style/web/img/areabg.png) repeat-x;}
+.g-ft{ background:#f9f9f9 url(//s1.music.126.net/style/web/img/ftbg.png) center 0 no-repeat;}
+/* Top */
+.g-wrap{width:980px; margin:0 auto;}
+.g-wrap-1{position:relative; *zooom:1; overflow:hidden;}
+.g-bd{min-height:500px; _height:500px;}
+.g-top{position:relative; z-index:100; height:64px; border-top:5px solid #B8110D; border-bottom:1px solid #dcd9d8;}
+.m-logo{width:192px; height:53px; margin-left:10px; padding-top:9px;}
+.m-nav li,.m-nav li a{display:inline; *zoom:1; float:left; width:100px; height:63px; text-indent:-9999px;}
+.m-nav li{margin-right:30px;}
+
+/* Footer */
+.g-ft{padding-bottom:20px;}
+.g-ft h3{width:72px; height:18px; overflow:hidden; margin:30px 0 0 20px;}
+.g-ft .m-comp{height:50px; margin:0px 0 130px 20px;}
+.g-ft .m-copy{line-height:23px; text-align:center;}
+.g-ft .m-copy,.g-ft .m-copy a{color:#999;}
+.g-ft .m-copy span{margin:0 8px 0 10px; color:#999;}
+
+
+/* Background */
+body{background-color:#f7f7f7;}
+.s-bg7{background:url(//s1.music.126.net/style/web/img/sprite_dj.png?=0326) no-repeat;}
+.s-bg7-1{background-position:-135px -670px;}/* 新建节目 */
+.s-bg7-2{ background-position:0 0;}/* 注册帐号 */
+.s-bg7-3{background-position:0 -36px;}/* 登录帐号 */
+.s-bg7-4,.s-bg7-5,.s-bg7-6,.s-bg7-7,.s-bg7-10,.s-bg7-11{display:block; width:104px; height:42px; background-position:0 -170px; text-align:center; line-height:41px; font-size:14px;font-weight:bold; color:#333;}/* 按钮 灰 2字 */
+.s-bg7-4:hover{background-position:0 -220px;}
+.s-bg7-5{background-position:0 -70px; color:#fff;} /* 按钮 红 2字 */
+.s-bg7-5:hover{background-position:0 -120px;}
+input.s-bg7-5{border:none; cursor:pointer; padding-bottom:3px;}
+.s-bg7-6{width:165px; background-position:-120px 0; text-indent:41px; text-align:left;}/* 通过手机号登录 */
+.s-bg7-6:hover{ background-position:-120px -50px;}
+.s-bg7-7{width:195px; background-position:-120px -100px; text-indent:49px; text-align:left;}/* 通过新浪微博登录 */
+.s-bg7-7:hover{background-position:-120px -150px;}
+.s-bg7-8{background-position:-120px -200px;}/* 灰格输入+86 */
+.s-bg7-9{background-position:-300px 5px;}
+.s-bg7-10{width:124px; background-position:-210px -200px; padding-bottom:3px; color:#fff; border:none; cursor:pointer;}/* 按钮 红 4字 */
+.s-bg7-10:hover{ background-position:-210px -252px;}
+.s-bg7-11{width:124px; background-position:0 -670px;}/* 按钮 灰 4字 */
+.s-bg7-11:hover{ background-position:0 -719px;}
+.s-bg7-12{width:42px; height:42px; background-position:0 -270px;}/* btn play */
+.s-bg7-12:hover{background-position:-50px -270px;}
+.s-bg7-13{width:42px; height:42px; background-position:-100px -270px;}/* btn pause */
+.s-bg7-13:hover{background-position:-150px -270px;}
+.s-bg7-14{width:313px; background-position:0 -320px;}/* step1 */
+.s-bg7-15{width:338px; background-position:0 -440px;}/* step2 */
+.s-bg7-16{width:329px; background-position:0 -555px;}/* step3 */
+.s-bg7-17{width:11px; height:14px; overflow:hidden; background-position:-300px -50px;}/* node */
+.s-bg7-18{width:20px; height:20px; background-position:-303px -679px;}/* 放大镜 */
+.s-bg7-19{width:80px; height:52px; background-position:-130px -705px; line-height:49px; font-size:14px; font-weight:bold; color:#333; text-align:center;}/* 搜索按钮 */
+.s-bg7-19:hover{background-position:-220px -705px; text-decoration:none;}
+.s-bg7-20{width:24px; height:25px; background-position:-240px -670px;}/* + */
+.s-bg7-21{background-position:0 -770px;}/* 大play */
+.s-bg7-21:hover{background-position:-75px -770px;}
+.s-bg7-22{background-position:-150px -770px;}/* 大pause */
+.s-bg7-22:hover{background-position:-230px -770px;}
+.s-bg7-23{width:15px; height:15px; background-position:-320px -799p

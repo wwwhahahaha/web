@@ -63,6 +63,11 @@
     from song_list
     where title = #{title,jdbcType=VARCHAR}
   </select>
+  <select id="songListBylimt" resultMap="ResultMapWithBLOBs">
+    select *
+    from song_list
+    limit #{0},#{1}
+  </select>
   <delete id="deleteSongList" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

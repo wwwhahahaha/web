@@ -8,7 +8,7 @@ const songStyle = [
     type: 'Two'
   },
   {
-    name: '粤语',
+    name: '民谣',
     type: 'Three'
   },
   {
@@ -16,7 +16,7 @@ const songStyle = [
     type: 'Four'
   },
   {
-    name: '日韩',
+    name: '流行',
     type: 'Five'
   },
   {
@@ -24,11 +24,11 @@ const songStyle = [
     type: 'Six'
   },
   {
-    name: 'BGM',
+    name: '摇滚',
     type: 'Seven'
   },
   {
-    name: '乐器',
+    name: '校园',
     type: 'Eight'
   }
 ]

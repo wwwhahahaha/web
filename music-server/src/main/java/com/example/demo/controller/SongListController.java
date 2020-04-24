@@ -65,6 +65,12 @@ public class SongListController {
         return songListService.allSongList();
     }
 
+//    按个人返回歌单
+    @RequestMapping(value = "/songList1", method = RequestMethod.GET)
+    public Object allSongList(HttpServletRequest req){
+        return songListService.allSongListByConsumer(Integer.valueOf(req.getParameter("id")));
+    }
+
 //    返回指定标题对应的歌单
     @RequestMapping(value = "/songList/title/detail", method = RequestMethod.GET)
     public Object songListOfTitle(HttpServletRequest req){

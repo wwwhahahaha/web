@@ -4,7 +4,7 @@
       <h2 class="title">播放列表</h2>
       <ul class="menus">
         <li v-for="(item, index) in listOfSongs" :class="{'is-play': id === item.id}" :key="index" @click="toplay(item.id, item.url, item.pic, index, item.name, item.lyric)">
-          {{replaceFName(item.name)}}
+          {{(item.name)}}
         </li>
       </ul>
     </div>
@@ -28,6 +28,7 @@ export default {
   mounted () {
     let _this = this
     document.addEventListener('click', function () {
+      console.log(this.listofSongs)
       _this.$store.commit('setShowAside', false)
     }, true)
   }

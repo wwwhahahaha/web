@@ -57,13 +57,19 @@ const song = {
       let changeTime = state.changeTime
       if (!changeTime) {
         changeTime = JSON.parse(window.sessionStorage.getItem('changeTime') || null)
+        console.log(changeTime)
       }
       return changeTime
     },
     title: state => {
       let title = state.title
       if (!title) {
-        title = JSON.parse(window.sessionStorage.getItem('title') || null)
+        // eslint-disable-next-line eqeqeq
+        console.log('title:' + window.sessionStorage.getItem('title'))
+        console.log(window.sessionStorage.getItem('title') || null)
+        // if (window.sessionStorage.getItem('title') != undefined) { title = JSON.parse(window.sessionStorage.getItem('title') || null) }
+        // title = JSON.parse(window.sessionStorage.getItem('title') || null)
+        title = null
       }
       return title
     },

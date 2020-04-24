@@ -22,7 +22,7 @@
         <div class="login-btn">
           <el-button type="primary" @click="submitForm">登录</el-button>
         </div>
-        <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码要写数据库里的。</p>
+        <p style="font-size:12px;line-height:30px;color:#999;">Tips : 仔细填写哦~。</p>
       </el-form>
     </div>
   </div>

@@ -13,6 +13,7 @@
 <script>
 import Swiper from '../components/Swiper'
 import ContentList from '../components/ContentList'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'home',
@@ -28,15 +29,20 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'userId' // 音乐ID
+    ])
+  },
   created () {
     // 获取歌单列表
-    this.getSongList('songList')
+    this.getSongList1(this.userId)
     // 获取歌手列表
     this.getSinger('singer')
   },
   methods: {
-    getSongList (path) {
-      this.$api.songListAPI.getSongList()
+    getSongList1 (id) {
+      this.$api.songListAPI.getSongList(id)
         .then(res => {
           this.songsList[0].list = res.data.slice(0, 10)
         })

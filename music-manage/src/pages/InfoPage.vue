@@ -63,12 +63,6 @@
           <ve-pie :data="singerSex" :theme="options1"></ve-pie>
         </div>
       </el-col>
-      <el-col :span="12">
-        <h3 style="margin: 20px 0">歌手国籍分布</h3>
-        <div  style="background-color: white">
-          <ve-histogram :data="country" :theme="options2"></ve-histogram>
-        </div>
-      </el-col>
     </el-row>
   </div>
 </template>
@@ -148,12 +142,12 @@ export default {
         columns: ['分格', '总数'],
         rows: [
           { '分格': '华语', '总数': 0 },
-          { '分格': '粤语', '总数': 0 },
+          { '分格': '民谣', '总数': 0 },
           { '分格': '欧美', '总数': 0 },
-          { '分格': '日韩', '总数': 0 },
-          { '分格': 'BGM', '总数': 0 },
+          { '分格': '流行', '总数': 0 },
           { '分格': '轻音乐', '总数': 0 },
-          { '分格': '乐器', '总数': 0 }
+          { '分格': '摇滚', '总数': 0 },
+          { '分格': '校园', '总数': 0 }
         ]
       },
       userCount: 0,

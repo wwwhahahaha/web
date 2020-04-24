@@ -31,7 +31,7 @@ public class ConsumerController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/avatorImages/**").addResourceLocations("file:C:\\Users\\传说\\Documents\\音乐网站\\music-website-master\\music-server\\data\\avatorImage\\");
+            registry.addResourceHandler("/avatorImages/**").addResourceLocations("file:C:\\Users\\传说\\Documents\\音乐网站\\music-website-master\\music-server\\data\\avatorImages\\");
         }
     }
 

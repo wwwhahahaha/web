@@ -7,8 +7,6 @@
         </div>
         <ul class="info">
           <li>性别：{{attachSex(singer.sex)}}</li>
-          <li>生日：{{singer.birth}}</li>
-          <li>地址：{{singer.location}}</li>
         </ul>
       </div>
       <div class="section">

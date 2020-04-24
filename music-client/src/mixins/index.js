@@ -9,7 +9,11 @@ export const mixin = {
     },
     // 获取图片信息
     attachImageUrl (srcUrl) {
-      return srcUrl ? this.$store.state.configure.HOST + srcUrl || '../assets/img/user.jpg' : ''
+      // eslint-disable-next-line eqeqeq
+      if (!srcUrl) return '../assets/img/user.jpg' || ''
+      if (String(srcUrl).indexOf('http') !== -1) { } else { srcUrl = this.$store.state.configure.HOST + srcUrl || '../assets/img/user.jpg' }
+      console.log(srcUrl)
+      return srcUrl
     },
     attachBirth (val) {
       let birth = String(val).match(/[0-9-]+(?=\s)/)
@@ -29,8 +33,8 @@ export const mixin = {
     toplay: function (id, url, pic, index, name, lyric) {
       this.$store.commit('setId', id)
       this.$store.commit('setListIndex', index)
-      this.$store.commit('setUrl', this.$store.state.configure.HOST + url)
-      this.$store.commit('setpicUrl', this.$store.state.configure.HOST + pic)
+      this.$store.commit('setUrl', url)
+      this.$store.commit('setpicUrl', pic)
       this.$store.commit('setTitle', this.replaceFName(name))
       this.$store.commit('setArtist', this.replaceLName(name))
       this.$store.commit('setLyric', this.parseLyric(lyric))

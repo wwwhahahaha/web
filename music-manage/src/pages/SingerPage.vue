@@ -30,12 +30,6 @@
             <div>{{changeSex(scope.row.sex) }}</div>
           </template>
         </el-table-column>
-        <el-table-column label="出生" width="120" align="center">
-          <template slot-scope="scope">
-              <div>{{attachBirth(scope.row.birth) }}</div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="location" label="地区" width="100" align="center"></el-table-column>
         <el-table-column label="简介">
           <template slot-scope="scope">
             <p style="height: 100px; overflow: scroll">{{ scope.row.introduction }}</p>

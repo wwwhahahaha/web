@@ -3,6 +3,8 @@ package com.example.demo.dao;
 import com.example.demo.domain.Rank;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RankMapper {
 
@@ -23,4 +25,8 @@ public interface RankMapper {
      * @return
      */
     int selectRankNum(Long songListId);
+
+    List<Integer> songListOfConsumerId(Integer consumerId);
+
+    List<Integer> consumerOfSongList(Integer songListid);
 }

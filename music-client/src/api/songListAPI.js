@@ -11,6 +11,9 @@ export default {
     return axios.get(`${host}/songList`)
   },
 
+  getSongList1 (id) {
+    return axios.get(`${host}/songList/?id=${id}`)
+  },
   /**
    * @msg: 获取歌单类型
    * @param {String} style

@@ -7,8 +7,6 @@
         </div>
         <ul class="info">
           <li v-if="singer.sex !== 2">性别：{{attachSex(singer.sex)}}</li>
-          <li>生日：{{attachBirth(singer.birth)}}</li>
-          <li>故乡：{{singer.location}}</li>
         </ul>
       </div>
       <div class="section">

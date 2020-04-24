@@ -35,4 +35,6 @@ public interface SongListMapper {
     List<SongList> likeStyle(String style);
 
     List<SongList> songListOfTitle(String title);
+
+    List<SongList> songListBylimt(Integer star,Integer limit);
 }

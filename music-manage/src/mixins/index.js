@@ -8,7 +8,8 @@ export const mixin = {
       })
     },
     getUrl (url) {
-      return `${this.$store.state.HOST}/${url}`
+      // return `${this.$store.state.HOST}/${url}`
+      return url
     },
     // 获取要删除列表的id
     handleDelete (id) {
