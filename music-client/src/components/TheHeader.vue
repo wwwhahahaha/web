@@ -23,7 +23,7 @@
           </div>
         </div>
       </li>
-      <li v-if="!loginIn" :class="{active: item.name === activeName}" v-for="item in loginMsg" :key="item.type" @click="goPage(item.path, item.name)">{{item.name}}</li>
+      <li v-if="!loginIn" :class="{active: item.name === activeName}" v-for="item in loginMsg" :key="item.type" @click="goPage(item.path, item.name)">{{item.name}}</li><!--登陆注册，activename当前激活页面-->
     </ul>
     <!--用户-->
     <ul class="menu">
@@ -38,7 +38,7 @@
 <script>
 import { mixin } from '../mixins'
 import { mapGetters } from 'vuex'
-import { navMsg, loginMsg, menuList } from '../assets/data/header'
+import { navMsg, loginMsg, menuList } from '../assets/data/header'// loginMsg 登陆注册
 
 export default {
   name: 'the-header',
@@ -70,12 +70,12 @@ export default {
     show () {
       document.querySelector('#user').addEventListener('click', function (e) {
         document.querySelector('.menu').classList.add('show')
-        e.stopPropagation()// 关键在于阻止冒泡
+        e.stopPropagation()// 关键在于阻止冒泡 阻止document的click事件发生
       }, false)
       // 点击“菜单”内部时，阻止事件冒泡。(这样点击内部时，菜单不会关闭)
       document.querySelector('.menu').addEventListener('click', function (e) {
         e.stopPropagation()
-      }, false)
+      }, false)// 阻止 document的click事件发生
       document.addEventListener('click', function () {
         document.querySelector('.menu').classList.remove('show')
       }, false)
