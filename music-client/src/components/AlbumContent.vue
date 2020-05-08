@@ -10,7 +10,6 @@
           <span class="item-index"></span>
           <span class="item-title">歌曲名</span>
           <span class="item-name">艺人</span>
-          <span class="item-intro">专辑</span>
         </div>
       </li>
       <li class="list-content" v-for="(item, index) in songList" :key="index">
@@ -23,7 +22,6 @@
           </span>
           <span class="item-title">{{replaceFName(item.name)}}</span>
           <span class="item-name">{{replaceLName(item.name)}}</span>
-          <span class="item-intro">{{item.introduction}}</span>
         </div>
       </li>
     </ul>

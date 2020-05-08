@@ -86,10 +86,12 @@ export default {
       this.$api.collectionAPI.getCollectionOfUser(userId)
         .then(res => {
           this.collection = res.data
+          console.log(res.data)
           // 通过歌曲ID获取歌曲信息
           for (let item of this.collection) {
             this.getCollectSongs(item.songId)
           }
+          console.log(this.collectList)
           this.$store.commit('setListOfSongs', this.collectList)
         })
         .catch(err => {

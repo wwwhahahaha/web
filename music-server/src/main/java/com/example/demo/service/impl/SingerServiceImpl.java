@@ -37,7 +37,9 @@ public class SingerServiceImpl implements SingerService{
     @Override
     public List<Singer> allSinger()
     {
-        return singerMapper.allSinger();
+        List<Singer> list=singerMapper.allSinger();
+        Collections.shuffle(list);
+        return list;
     }
 
     @Override

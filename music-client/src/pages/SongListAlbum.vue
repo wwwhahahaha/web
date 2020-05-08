@@ -81,6 +81,7 @@ export default {
     this.singers = this.tempList
     this.getSongId() // 获取歌单里面的歌曲ID
     this.getRank(this.songListId) // 获取评分
+    console.log(this.listOfSongs)
   },
   mixins: [mixin],
   methods: {

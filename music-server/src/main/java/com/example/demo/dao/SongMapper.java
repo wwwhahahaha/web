@@ -28,6 +28,7 @@ public interface SongMapper {
     int updateSongPic(Song record);
 
     int deleteSong(Integer id);
+    void deleteAllSong();
 
     List<Song> allSong();
 

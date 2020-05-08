@@ -63,6 +63,12 @@
           <ve-pie :data="singerSex" :theme="options1"></ve-pie>
         </div>
       </el-col>
+      <el-col :span="12">
+        <h3 style="margin: 20px 0">歌手国籍分布</h3>
+        <div  style="background-color: white">
+          <ve-histogram :data="country" :theme="options2"></ve-histogram>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -92,10 +98,10 @@ export default {
       country: {
         columns: ['国家', '总数'],
         rows: [
-          { '国家': '中国', '总数': 0 },
+          { '国家': '大陆', '总数': 0 },
           { '国家': '韩国', '总数': 0 },
-          { '国家': '意大利', '总数': 0 },
-          { '国家': '新加坡', '总数': 0 },
+          { '国家': '台湾', '总数': 0 },
+          { '国家': '香港', '总数': 0 },
           { '国家': '美国', '总数': 0 },
           { '国家': '马来西亚', '总数': 0 },
           { '国家': '西班牙', '总数': 0 },
