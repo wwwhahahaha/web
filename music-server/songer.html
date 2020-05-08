@@ -11,10 +11,13 @@
   <meta name="shenma-site-verification" content="12da4afc02bfe908ed0667f287167d11_1555581349" /> 
   <meta property="qc:admins" content="27354635321361636375" /> 
   <meta name="applicable-device" content="pc" /> 
-  <title>-树先生music - 网易云音乐</title> 
-  <meta name="keywords" content="-树先生music" /> 
-  <meta name="description" content="原创音乐人的生涯何曾容易。幸好啊，夏天遇见你。我一起陪你们从不知所措到自信满满，看着你们的才华如山泉一股股涌出来，我的爱从来不是单箭头，我都记在心里。接下来的许多年，也要陪你走下去[爱心]" /> 
-  <meta property="og:title" content="-树先生music - 网易云音乐" /> 
+  <title>陈雪凝 - 网易云音乐</title> 
+  <meta name="keywords" content="陈雪凝" /> 
+  <meta name="description" content="音乐人陈雪凝（SherlyChan）
+2001年生
+2017年只身下成都开始音乐创作之路
+2018年发行首张个人录音室专辑《拾陆》" /> 
+  <meta property="og:title" content="陈雪凝 - 网易云音乐" /> 
   <meta property="og:site_name" content="网易云音乐" /> 
   <script type="text/javascript">
 var GDownloadLink="";
@@ -62,13 +65,23 @@ _isAndroid = /android/i.test(_ua),
 _isIpad = /(ipad)/i.test(_ua),
 _igList = [/^\/xiami$/,/^\/live$/],//不需要以单页面打开的列表，比如某些活动页面
 _pn = location.pathname,
+_ydomainPath = ['home', 'activity','album','artist','djradio','radio','dj','login','mv','playlist','program','song','tiktoksong', 'uniplaylist','unisong','user','video','event','discover/toplist','user/home'],
 _idx = _pn.lastIndexOf('/'),
 _pReg = /\s*(\w+)\s*=\s*(\d+)\s*/,
+_isOnCDN = function(type) {
+return _ydomainPath.indexOf(type) !== -1;
+},
+_isOnline = function() {
+return location.host.indexOf('music.163.com') !== -1
+},
+_getBase = function(type) {
+return location.protocol + '//' + ((_isOnCDN(type) && _isOnline()) ? 'y.music.163.com' : location.hostname);
+},
 _redirect2mobile = function() {
 var _type,_murl,
 _id = 0,
 _hash = location.hash,
-_mReg = /^#\/?m?\/(share|song|playlist|djradio|dj|program|album|mv|artist|topic|radio|zysf|drqp|qp|activity|store|user|event|video|discover\/toplist)(\/(\d+))?/,
+_mReg = /^#\/?m?\/(share|song|playlist|djradio|dj|program|album|mv|artist|topic|radio|zysf|drqp|qp|activity|store|user|event|video|discover\/toplist|login)(\/(\d+))?/,
 _base = location.protocol+'//'+location.hostname,
 _sindex = _hash.lastIndexOf('?'),
 _search = _sindex>-1?_hash.substring(_sindex+1):'',
@@ -78,13 +91,19 @@ if (_hash === '#/user/level') {
 location.href = _base + '/store/m/gain/mylevel';
 return;
 }
+// 网易音乐人手册特殊处理
+if (/^#\/series\b/.test(_hash)) {
+var _seriesQuery = _search.replace('id', 'seriesId');
+location.href = _base + '/m/topic/all?' + _seriesQuery;
+return;
+}
 // 无hash || 不匹配 || 匹配但是商品之外不带参数 || 匹配且是排行榜
 if (!_hash.length || !_match || (_match[1] != 'store' && !_search) || /share|discover\/toplist/.test(_match[1])) {
 // 有hash && (没有参数 || 排行榜)
 if ((!_search || /share|discover\/toplist/.test(_match[1])) && _hash.length) {
-location.href = _base + '/' + _hash.replace('#', 'm');
+location.href = ((_match && _match[1]) ? _getBase(_match[1]) : _base) + '/' + _hash.replace('#', 'm');
 } else {
-location.href = _base + '/m/';
+location.href = _getBase('home') + '/m/';
 }
 return;
 }
@@ -96,7 +115,7 @@ _murl = /^#\/store\/(product|concert)\/detail/.test(_hash) ? _hash.replace('#/st
 } else {
 _murl = '/' + _type + '?' + (_id ? 'id=' + _id + '&' : '') + _search;
 }
-location.href = _base + _murl;
+location.href = _getBase(_type) + (_isOnCDN(_type) ? '/m' : '') + _murl;
 };
 if(_isMobile || _isAndroid || _isIpad){
 _redirect2mobile();
@@ -269,8 +288,8 @@ top.scrollTopbar(Math.max(document.body.scrollTop, document.documentElement.scro
   </script> 
   <base href="//music.163.com/" target="_top" /> 
   <link rel="shortcut icon" href="//s1.music.126.net/style/favicon.ico?v20180823" /> 
-  <link href="//s2.music.126.net/web/s/core_0de30c473ed72cf66abc32629877f858.css?0de30c473ed72cf66abc32629877f858" type="text/css" rel="stylesheet" />
-  <link href="//s2.music.126.net/web/s/pt_frame_bc27170ba24b668e79834ee58d54e159.css?bc27170ba24b668e79834ee58d54e159" type="text/css" rel="stylesheet" /> 
+  <link href="//s2.music.126.net/web/s/core_8ec9d259f5a906888e55cfefecaaa0f0.css?8ec9d259f5a906888e55cfefecaaa0f0" type="text/css" rel="stylesheet" />
+  <link href="//s2.music.126.net/web/s/pt_frame_32d97eb2f5eccceaf7d2f20a9263b54f.css?32d97eb2f5eccceaf7d2f20a9263b54f" type="text/css" rel="stylesheet" /> 
  </head> 
  <body> 
   <div data-module="discover" data-sub="other" id="g_top" class="m-top">
@@ -292,24 +311,24 @@ top.matchNav("discover", "other");
      <div class="g-wrap6"> 
       <div class="n-artist f-cb"> 
        <div class="btm"> 
-        <h2 id="artist-name" data-rid="33022385" class="sname f-thide sname-max" title="-树先生music - ">-树先生music</h2> 
-        <h3 id="artist-alias" class="salias f-thide" title="-树先生music - "> </h3> 
+        <h2 id="artist-name" data-rid="12382970" class="sname f-thide sname-max" title="陈雪凝 - ">陈雪凝</h2> 
+        <h3 id="artist-alias" class="salias f-thide" title="陈雪凝 - "> </h3> 
        </div> 
-       <img src="http://p1.music.126.net/hubYiyjMgonbDSwCfYoopQ==/109951164916713157.jpg?param=640y300" /> 
+       <img src="http://p2.music.126.net/UheOVkTuZEGnT1GarIj4Pw==/109951163985034688.jpg?param=640y300" /> 
        <div class="mask f-alpha"></div> 
-       <a id="artist-home" href="/user/home?id=1556574418" class="btn-rz f-tid">Ta的个人主页</a> 
+       <a id="artist-home" href="/user/home?id=345110063" class="btn-rz f-tid">Ta的个人主页</a> 
        <a id="artist-sub" href="javascript:void(0)" class="btnfav f-tid">收藏</a> 
       </div> 
       <ul id="m_tabs" class="m-tabs f-cb"> 
-       <li class="fst"><a href="/artist?id=33022385"><em>热门作品</em></a></li> 
-       <li><a href="/artist/album?id=33022385"><em>所有专辑</em></a></li> 
-       <li><a href="/artist/mv?id=33022385"><em>相关MV</em></a></li> 
-       <li><a href="/artist/desc?id=33022385" class="z-slt"><em>艺人介绍</em></a></li> 
+       <li class="fst"><a href="/artist?id=12382970"><em>热门作品</em></a></li> 
+       <li><a href="/artist/album?id=12382970"><em>所有专辑</em></a></li> 
+       <li><a href="/artist/mv?id=12382970"><em>相关MV</em></a></li> 
+       <li><a href="/artist/desc?id=12382970" class="z-slt"><em>艺人介绍</em></a></li> 
       </ul> 
       <div> 
        <div class="n-artdesc"> 
-        <h2><i>&nbsp;</i>-树先生music简介</h2> 
-        <p>原创音乐人的生涯何曾容易。幸好啊，夏天遇见你。我一起陪你们从不知所措到自信满满，看着你们的才华如山泉一股股涌出来，我的爱从来不是单箭头，我都记在心里。接下来的许多年，也要陪你走下去[爱心]</p> 
+        <h2><i>&nbsp;</i>陈雪凝简介</h2> 
+        <p>音乐人陈雪凝（SherlyChan） 2001年生 2017年只身下成都开始音乐创作之路 2018年发行首张个人录音室专辑《拾陆》</p> 
        </div> 
       </div> 
      </div> 
@@ -325,30 +344,30 @@ top.matchNav("discover", "other");
      </div> 
      <h3 class="u-hd3"> <span class="f-fl">热门歌手</span> </h3> 
      <ul class="m-hdlist f-cb" id="rec-similar-artists"> 
-      <li data-res-id="861777" data-res-type="2" data-res-action="log" data-res-data="recommendclick|0||artist-artist-recommend|33022385"> 
+      <li data-res-id="34522800" data-res-type="2" data-res-action="log" data-res-data="recommendclick|0||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=861777" title="华晨宇"> <img src="http://p4.music.126.net/eiazGAbIGMBF-Q9lInm5xw==/109951164158509628.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=861777" title="华晨宇" class="nm nm-icn f-ib f-thide">华晨宇</a> </p> </li> 
-      <li data-res-id="12429072" data-res-type="2" data-res-action="log" data-res-data="recommendclick|1||artist-artist-recommend|33022385"> 
+        <a href="/artist?id=34522800" title="火羊瞌睡了"> <img src="http://p4.music.126.net/0Mqbnfd_uGrRe7uYHFPT7w==/109951164784283860.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=34522800" title="火羊瞌睡了" class="nm nm-icn f-ib f-thide">火羊瞌睡了</a> </p> </li> 
+      <li data-res-id="9255" data-res-type="2" data-res-action="log" data-res-data="recommendclick|1||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=12429072" title="隔壁老樊"> <img src="http://p4.music.126.net/Xl0WENt4F6wsgjjjQWuQsw==/109951164232034479.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=12429072" title="隔壁老樊" class="nm nm-icn f-ib f-thide">隔壁老樊</a> </p> </li> 
-      <li data-res-id="5781" data-res-type="2" data-res-action="log" data-res-data="recommendclick|2||artist-artist-recommend|33022385"> 
+        <a href="/artist?id=9255" title="任然"> <img src="http://p3.music.126.net/Wi-cn8nbHtx1JlNPSBuqCQ==/109951163137464995.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=9255" title="任然" class="nm nm-icn f-ib f-thide">任然</a> </p> </li> 
+      <li data-res-id="7763" data-res-type="2" data-res-action="log" data-res-data="recommendclick|2||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=5781" title="薛之谦"> <img src="http://p3.music.126.net/jq8QrogorsmwJv3Xn7_UOQ==/109951163765021940.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=5781" title="薛之谦" class="nm nm-icn f-ib f-thide">薛之谦</a> </p> </li> 
-      <li data-res-id="30116848" data-res-type="2" data-res-action="log" data-res-data="recommendclick|3||artist-artist-recommend|33022385"> 
+        <a href="/artist?id=7763" title="G.E.M.邓紫棋"> <img src="http://p4.music.126.net/R5fsMgpLHC9mJbLLA6EKLA==/109951164561120345.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=7763" title="G.E.M.邓紫棋" class="nm nm-icn f-ib f-thide">G.E.M.邓紫棋</a> </p> </li> 
+      <li data-res-id="14312549" data-res-type="2" data-res-action="log" data-res-data="recommendclick|3||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=30116848" title="阿冗"> <img src="http://p3.music.126.net/HxK8Q8RxyoAqTxo-mEvCIg==/109951164598937387.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=30116848" title="阿冗" class="nm nm-icn f-ib f-thide">阿冗</a> </p> </li> 
-      <li data-res-id="3684" data-res-type="2" data-res-action="log" data-res-data="recommendclick|4||artist-artist-recommend|33022385"> 
+        <a href="/artist?id=14312549" title="王贰浪"> <img src="http://p3.music.126.net/daN7qav1x0nWl-TZRe41dw==/109951163303423969.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=14312549" title="王贰浪" class="nm nm-icn f-ib f-thide">王贰浪</a> </p> </li> 
+      <li data-res-id="28863695" data-res-type="2" data-res-action="log" data-res-data="recommendclick|4||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=3684" title="林俊杰"> <img src="http://p4.music.126.net/cnGpIQ6rQCKVrDyVVSpzeg==/3263350518850877.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=3684" title="林俊杰" class="nm nm-icn f-ib f-thide">林俊杰</a> </p> </li> 
-      <li data-res-id="12138269" data-res-type="2" data-res-action="log" data-res-data="recommendclick|5||artist-artist-recommend|33022385"> 
+        <a href="/artist?id=28863695" title="司南"> <img src="http://p4.music.126.net/VXY5VYnsUVPExV6ZoQ81zw==/109951163460549658.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=28863695" title="司南" class="nm nm-icn f-ib f-thide">司南</a> </p> </li> 
+      <li data-res-id="8103" data-res-type="2" data-res-action="log" data-res-data="recommendclick|5||artist-artist-recommend|12382970"> 
        <div class="hd"> 
-        <a href="/artist?id=12138269" title="毛不易"> <img src="http://p3.music.126.net/ZXX_c7YiEcNp5HVQWa-y6A==/109951164528322889.jpg?param=50y50" /> </a> 
-       </div> <p> <a href="/artist?id=12138269" title="毛不易" class="nm nm-icn f-ib f-thide">毛不易</a> </p> </li> 
+        <a href="/artist?id=8103" title="花粥"> <img src="http://p4.music.126.net/f2R3-se6DLlcucIusS6mQQ==/109951163610593454.jpg?param=50y50" /> </a> 
+       </div> <p> <a href="/artist?id=8103" title="花粥" class="nm nm-icn f-ib f-thide">花粥</a> </p> </li> 
      </ul> 
      <div class="m-multi"> 
       <h3 class="u-hd3"> <span class="f-fl">网易云音乐多端下载</span> </h3> 
@@ -427,4 +446,4 @@ top.matchNav("discover", "other");
    <textarea name="jst" id="m-wgt-song-top50-list" style="display:none;">&lt;table class=&quot;m-table m-table-1 m-table-4&quot;&gt; &lt;tbody&gt; {list beg..end as y} {var x=xlist[y]} &lt;tr id=&quot;${x.id|seed}&quot; class=&quot;{if y%2==0}even{/if} {if disable(x)}js-dis{/if}&quot;&gt; &lt;td class=&quot;w1&quot;&gt; &lt;div class=&quot;hd&quot;&gt; &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;span class=&quot;num&quot;&gt;${y+1}&lt;/span &lt;/div &lt;/td &lt;td class=&quot;&quot;&gt; &lt;div class=&quot;f-cb&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt; {var alia=songAlia(x)} &lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name|escape}{if alia} - (${alia|escape}){/if}&quot;&gt;${soil(x.name)}&lt;/b&lt;/a{if alia}&lt;span title=&quot;${alia|escape}&quot; class=&quot;s-fc8&quot;&gt; - (${soil(alia)})&lt;/span{/if} {if x.mvid&gt;0} &lt;span data-res-id=&quot;${x.id}&quot; data-res-action=&quot;mv&quot; title=&quot;播放mv&quot; class=&quot;mv&quot;&gt;MV&lt;/span {/if} &lt;/span &lt;/div &lt;/div &lt;/div &lt;/td &lt;td class=&quot;w2-1 s-fc3&quot;&gt; &lt;span class=&quot;u-dur {if canDel}candel{/if}&quot;&gt;${dur2time(x.duration/1000)}{if x.ftype==2}&lt;i title=&quot;歌曲来自第三方网站&quot; class=&quot;migu u-icn2 u-icn2-14&quot;&gt;&lt;/i{/if}&lt;/span &lt;div class=&quot;opt hshow&quot;&gt; &lt;a class=&quot;u-icn u-icn-81 icn-add&quot; href=&quot;javascript:;&quot; title=&quot;添加到播放列表&quot; hidefocus=&quot;true&quot; data-res-type=&quot;18&quot; data-res-id=&quot;${x.id}&quot; data-res-action=&quot;addto&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if}&gt;&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;fav&quot; class=&quot;icn icn-fav&quot; title=&quot;收藏&quot;&gt;&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;share&quot; data-res-name=&quot;${x.name}&quot; data-res-author=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot; {if x.album}data-res-pic=&quot;${x.album.picUrl}&quot;{/if} class=&quot;icn icn-share&quot; title=&quot;分享&quot;&gt;分享&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;download&quot; class=&quot;icn icn-dl&quot; title=&quot;下载&quot;&gt;&lt;/span {if canDel} &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;delete&quot; class=&quot;icn icn-del&quot; title=&quot;删除&quot;&gt;删除&lt;/span {/if} &lt;/div &lt;/td &lt;td class=&quot;w4&quot;&gt; &lt;div class=&quot;text&quot;&gt; {if x.album} {var transName = x.album.tns &amp;&amp; x.album.tns.length &gt; 0 ? x.album.tns[0] : ''} &lt;a href=&quot;/album?id=${x.album.id}&quot; title=&quot;${x.album.name|escape}{if transName} - (${transName|escape}){/if}&quot;&gt;${soil(x.album.name)}&lt;/a {if transName} &lt;span title=&quot;${transName|escape}&quot; class=&quot;s-fc8&quot;&gt; - (${transName|escape})&lt;/span {/if} {/if} &lt;/div &lt;/td &lt;/tr {/list} &lt;/tbody &lt;/table </textarea> 
    <textarea name="jst" id="m-wgt-song-rank-list" style="display:none;">&lt;table class=&quot;m-table m-table-rank&quot;&gt; &lt;thead&gt; &lt;tr&gt; &lt;th class=&quot;first w1&quot;&gt;&lt;/th &lt;th&gt;&lt;div class=&quot;wp&quot;&gt;标题&lt;/div&lt;/th &lt;th class=&quot;w2-1&quot;&gt;&lt;div class=&quot;wp&quot;&gt;时长&lt;/div&lt;/th &lt;th class=&quot;w3-1&quot;&gt;&lt;div class=&quot;wp&quot;&gt;歌手&lt;/div&lt;/th &lt;/tr &lt;/thead &lt;tbody&gt; {list beg..end as y} {var x=xlist[y]} &lt;tr id=&quot;${x.id|seed}&quot; class=&quot;{if y%2==0}even{/if} {if disable(x)}js-dis{/if}&quot;&gt; {if y&lt;3} &lt;td&gt; &lt;div class=&quot;hd&quot;&gt; &lt;span class=&quot;num&quot;&gt;${y+1}&lt;/span &lt;div class=&quot;rk &quot;&gt; {if x.lastRank&gt;=0} {if y-x.lastRank&gt;0} &lt;span class=&quot;ico u-icn u-icn-74 s-fc10&quot;&gt;${y-x.lastRank}&lt;/span {elseif y-x.lastRank==0} &lt;span class=&quot;ico u-icn u-icn-72 s-fc4&quot;&gt;0&lt;/span {else} &lt;span class=&quot;ico u-icn u-icn-73 s-fc9&quot;&gt;${x.lastRank-y}&lt;/span {/if} {else} &lt;span class=&quot;u-icn u-icn-75&quot;&gt;&lt;/span {/if} &lt;/div &lt;/div &lt;/td &lt;td class=&quot;rank&quot;&gt; &lt;div class=&quot;f-cb&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;a href=&quot;/song?id=${x.id}&quot;&gt;{if x.album}&lt;img class=&quot;rpic&quot; src=&quot;${x.album.picUrl}?param=50y50&amp;quality=100&quot;&gt;{/if}&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt; {var alia=songAlia(x)} &lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name|escape}{if alia} - (${alia|escape}){/if}&quot;&gt;${soil(x.name)}&lt;/b&lt;/a{if alia}&lt;span title=&quot;${alia|escape}&quot; class=&quot;s-fc8&quot;&gt; - (${soil(alia)})&lt;/span{/if} {if x.mvid&gt;0} &lt;span data-res-id=&quot;${x.id}&quot; data-res-action=&quot;mv&quot; title=&quot;播放mv&quot; class=&quot;mv&quot;&gt;MV&lt;/span {/if} &lt;/span &lt;/div &lt;/div &lt;/div &lt;/td {else} &lt;td&gt; &lt;div class=&quot;hd&quot;&gt; &lt;span class=&quot;num&quot;&gt;${y+1}&lt;/span &lt;div class=&quot;rk &quot;&gt; {if x.lastRank&gt;=0} {if y-x.lastRank&gt;0} &lt;span class=&quot;ico u-icn u-icn-74 s-fc10&quot;&gt;${y-x.lastRank}&lt;/span {elseif y-x.lastRank==0} &lt;span class=&quot;ico u-icn u-icn-72 s-fc4&quot;&gt;0&lt;/span {else} &lt;span class=&quot;ico u-icn u-icn-73 s-fc9&quot;&gt;${x.lastRank-y}&lt;/span {/if} {else} &lt;span class=&quot;u-icn u-icn-75&quot;&gt;&lt;/span {/if} &lt;/div &lt;/div &lt;/td &lt;td class=&quot;&quot;&gt; &lt;div class=&quot;f-cb&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt; {var alia=songAlia(x)} &lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name|escape}{if alia} - (${alia|escape}){/if}&quot;&gt;${soil(x.name)}&lt;/b&lt;/a{if alia}&lt;span title=&quot;${alia|escape}&quot; class=&quot;s-fc8&quot;&gt; - (${soil(alia)})&lt;/span{/if} {if x.mvid&gt;0} &lt;span data-res-id=&quot;${x.id}&quot; data-res-action=&quot;mv&quot; title=&quot;播放mv&quot; class=&quot;mv&quot;&gt;MV&lt;/span {/if} &lt;/span &lt;/div &lt;/div &lt;/div &lt;/td {/if} &lt;td class=&quot; s-fc3&quot;&gt; &lt;span class=&quot;u-dur {if canDel}candel{/if}&quot;&gt;${dur2time(x.duration/1000)}{if x.ftype==2}&lt;i title=&quot;歌曲来自第三方网站&quot; class=&quot;migu u-icn2 u-icn2-14&quot;&gt;&lt;/i{/if}&lt;/span &lt;div class=&quot;opt hshow&quot;&gt; &lt;a class=&quot;u-icn u-icn-81 icn-add&quot; href=&quot;javascript:;&quot; title=&quot;添加到播放列表&quot; hidefocus=&quot;true&quot; data-res-type=&quot;18&quot; data-res-id=&quot;${x.id}&quot; data-res-action=&quot;addto&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if}&gt;&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;fav&quot; class=&quot;icn icn-fav&quot; title=&quot;收藏&quot;&gt;&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;share&quot; data-res-name=&quot;${x.name}&quot; data-res-author=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot; {if x.album}data-res-pic=&quot;${x.album.picUrl}&quot;{/if} class=&quot;icn icn-share&quot; title=&quot;分享&quot;&gt;分享&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;download&quot; class=&quot;icn icn-dl&quot; title=&quot;下载&quot;&gt;&lt;/span {if canDel} &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;delete&quot; class=&quot;icn icn-del&quot; title=&quot;删除&quot;&gt;删除&lt;/span {/if} &lt;/div &lt;/td &lt;td class=&quot;&quot;&gt; &lt;div class=&quot;text&quot; title=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot;&gt; ${getArtistName(x.artists, '', '', false, false, true)} &lt;/div &lt;/td &lt;/tr {/list} &lt;/tbody &lt;/table </textarea> 
    <textarea name="jst" id="m-wgt-song-pgm-list" style="display:none;">&lt;table class=&quot;m-table m-table-prog&quot;&gt; &lt;tbody id=&quot;song-list&quot;&gt; {list beg..end as y} {var x=xlist[y]} &lt;tr id=&quot;${x.id|seed}&quot; class=&quot;{if y%2!=0}even{/if} {if disable(x)}js-dis{/if}&quot;&gt; &lt;td class=&quot;first col1&quot;&gt; &lt;div class=&quot;hd&quot;&gt; &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;span class=&quot;num&quot;&gt;${y+1}&lt;/span &lt;/div &lt;/td &lt;td class=&quot;col2&quot;&gt; &lt;div class=&quot;f-cb&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt; {var alia=songAlia(x)} &lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name|escape}{if alia} - (${alia|escape}){/if}&quot;&gt;${soil(x.name)}&lt;/b&lt;/a{if alia}&lt;span title=&quot;${alia|escape}&quot; class=&quot;s-fc8&quot;&gt; - (${soil(alia)})&lt;/span{/if} {if x.mvid&gt;0} &lt;span data-res-id=&quot;${x.id}&quot; data-res-action=&quot;mv&quot; title=&quot;播放mv&quot; class=&quot;mv&quot;&gt;MV&lt;/span {/if} &lt;/span &lt;/div &lt;/div &lt;/div &lt;/td &lt;td class=&quot;col3 s-fc3&quot;&gt; &lt;span class=&quot;u-dur {if canDel}candel{/if}&quot;&gt;${dur2time(x.duration/1000)}{if x.ftype==2}&lt;i title=&quot;歌曲来自第三方网站&quot; class=&quot;migu u-icn2 u-icn2-14&quot;&gt;&lt;/i{/if}&lt;/span &lt;div class=&quot;opt hshow&quot;&gt; &lt;a class=&quot;u-icn u-icn-81 icn-add&quot; href=&quot;javascript:;&quot; title=&quot;添加到播放列表&quot; hidefocus=&quot;true&quot; data-res-type=&quot;18&quot; data-res-id=&quot;${x.id}&quot; data-res-action=&quot;addto&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if}&gt;&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;fav&quot; class=&quot;icn icn-fav&quot; title=&quot;收藏&quot;&gt;&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;share&quot; data-res-name=&quot;${x.name}&quot; data-res-author=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot; {if x.album}data-res-pic=&quot;${x.album.picUrl}&quot;{/if} class=&quot;icn icn-share&quot; title=&quot;分享&quot;&gt;分享&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;download&quot; class=&quot;icn icn-dl&quot; title=&quot;下载&quot;&gt;&lt;/span {if canDel} &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;delete&quot; class=&quot;icn icn-del&quot; title=&quot;删除&quot;&gt;删除&lt;/span {/if} &lt;/div &lt;/td &lt;td class=&quot;col4&quot;&gt; &lt;div class=&quot;text&quot; title=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot;&gt; ${getArtistName(x.artists, '', '', false, false, true)} &lt;/div &lt;/td &lt;td class=&quot;col5&quot;&gt; &lt;div class=&quot;text&quot;&gt; {if x.album} &lt;a href=&quot;/album?id=${x.album.id}&quot; title=&quot;${x.album.name|escape}&quot;&gt;${soil(x.album.name)}&lt;/a {/if} &lt;/div &lt;/td &lt;/tr {/list} &lt;/tbody &lt;/table </textarea> 
-   <textarea name="jst" id="m-wgt-song-listen" style="display:none;"> &lt;ul&gt; {list beg..end as y} {var x=xlist[y]} {if extData&amp;&amp;extData.limit&amp;&amp;y&gt;=extData.limit} {break} {/if} {var from=getFrom()} &lt;li id=&quot;${x.id|seed}&quot; {if y%2 !=0 }class='even'{/if}&gt; &lt;div class=&quot;hd &quot;&gt; &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;span class=&quot;num&quot;&gt;${y+1}.&lt;/span &lt;/div &lt;div class=&quot;song&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt;&lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name}&quot;&gt;${x.name}&lt;/b&lt;/a &lt;span class='ar s-fc8'&gt; &lt;em&gt;-&lt;/em ${getArtistName(x.artists, 's-fc8')} &lt;/span &lt;/span &lt;/div &lt;/div &lt;div class=&quot;opt&quot;&gt; &lt;a class=&quot;u-icn u-icn-81 icn-add&quot; href=&quot;javascript:;&quot; title=&quot;添加到播放列表&quot; hidefocus=&quot;true&quot; data-res-type=&quot;18&quot; data-res-id=&quot;${x.id}&quot; data-res-action=&quot;addto&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if}&gt;&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;subscribe&quot; class=&quot;icn icn-fav&quot; title=&quot;收藏&quot;&gt;&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;share&quot; data-res-name=&quot;${x.name}&quot; data-res-author=&quot;{list x.artists as art}${art.name}{if art_index&lt;x.artists.length-1}/{/if}{/list}&quot; class=&quot;icn icn-share&quot; title=&quot;分享&quot;&gt;分享&lt;/span &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;download&quot; class=&quot;icn icn-dl&quot; title=&q
+   <textarea name="jst" id="m-wgt-song-listen" style="display:none;"> &lt;ul&gt; {list beg..end as y} {var x=xlist[y]} {if extData&amp;&amp;extData.limit&amp;&amp;y&gt;=extData.limit} {break} {/if} {var from=getFrom()} &lt;li id=&quot;${x.id|seed}&quot; {if y%2 !=0 }class='even'{/if}&gt; &lt;div class=&quot;hd &quot;&gt; &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;play&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if} class=&quot;ply {if isPlaying(x)}ply-z-slt{/if}&quot;&gt;&nbsp;&lt;/span &lt;span class=&quot;num&quot;&gt;${y+1}.&lt;/span &lt;/div &lt;div class=&quot;song&quot;&gt; &lt;div class=&quot;tt&quot;&gt; &lt;div class=&quot;ttc&quot;&gt; &lt;span class=&quot;txt&quot;&gt;&lt;a href=&quot;/song?id=${x.id}&quot;&gt;&lt;b title=&quot;${x.name}&quot;&gt;${x.name}&lt;/b&lt;/a &lt;span class='ar s-fc8'&gt; &lt;em&gt;-&lt;/em ${getArtistName(x.artists, 's-fc8')} &lt;/span &lt;/span &lt;/div &lt;/div &lt;div class=&quot;opt&quot;&gt; &lt;a class=&quot;u-icn u-icn-81 icn-add&quot; href=&quot;javascript:;&quot; title=&quot;添加到播放列表&quot; hidefocus=&quot;true&quot; data-res-type=&quot;18&quot; data-res-id=&quot;${x.id}&quot; data-res-action=&quot;addto&quot; {if from}data-res-from=&quot;${from.fid}&quot; data-res-data=&quot;${from.fdata}&quot;{/if}&gt;&lt;/a &lt;span data-res-id=&quot;${x.id}&quot; data-res-type=&quot;18&quot; data-res-action=&quot;subscribe&quot; class=&quot;icn icn-fav&quot; title=&quot;

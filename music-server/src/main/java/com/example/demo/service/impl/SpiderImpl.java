@@ -82,6 +82,9 @@ public class SpiderImpl {
 
 
     @Scheduled(cron = "* * * */1 * ?")
+    public void getSpider() throws IOException {
+        getAlbum("https://music.163.com/discover/playlist");
+    }
     public void getAlbum(String url) throws IOException {
 
         Document doc1 = null;
