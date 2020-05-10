@@ -2,9 +2,19 @@ const user = {
   state: {
     userId: '',
     username: '',
-    avator: ''
+    avator: '',
+    first: true, // 判断是否第一次打开首页
+    songsList: ''
   },
   getters: {
+    songsList: state => {
+      let songsList = state.songsList
+      return songsList
+    },
+    first: state => {
+      let first = state.first
+      return first
+    },
     userId: state => {
       let userId = state.userId
       if (!userId) {
@@ -28,6 +38,12 @@ const user = {
     }
   },
   mutations: {
+    setSongsList: (state, songsList) => {
+      state.songsList = songsList
+    },
+    setFirst: (state, first) => {
+      state.first = first
+    },
     setUserId: (state, userId) => {
       state.userId = userId
       window.localStorage.setItem('userId', JSON.stringify(userId))

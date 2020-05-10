@@ -13,7 +13,7 @@
 <script>
 import Swiper from '../components/Swiper'
 import ContentList from '../components/ContentList'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'home',
@@ -23,7 +23,7 @@ export default {
   },
   data () {
     return {
-      songsList: [
+      songsList0: [
         {name: '歌单', list: []},
         {name: '歌手', list: []}
       ]
@@ -31,20 +31,30 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'userId' // 音乐ID
+      'userId', // 音乐ID
+      'first',
+      'songsList'
     ])
   },
   created () {
-    // 获取歌单列表
-    this.getSongList1(this.userId)
-    // 获取歌手列表
-    this.getSinger('singer')
+    if (this.first) {
+      // 获取歌单列表
+      this.getSongList1(this.userId)
+      // 获取歌手列表
+      this.getSinger('singer')
+      this.setFirst(false)
+      this.setSongsList(this.songsList0)
+    }
   },
   methods: {
+    ...mapMutations({
+      setFirst: 'setFirst',
+      setSongsList: 'setSongsList'
+    }),
     getSongList1 (id) {
       this.$api.songListAPI.getSongList(id)
         .then(res => {
-          this.songsList[0].list = res.data.slice(0, 10)
+          this.songsList0[0].list = res.data.slice(0, 10)
         })
         .catch(err => {
           console.log(err)
@@ -53,7 +63,7 @@ export default {
     getSinger () {
       this.$api.singerAPI.getAllSinger()
         .then(res => {
-          this.songsList[1].list = res.data.slice(0, 10)
+          this.songsList0[1].list = res.data.slice(0, 10)
         })
         .catch(err => {
           console.log(err)
