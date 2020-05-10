@@ -36,10 +36,8 @@ public class SpiderImpl {
 
     //HttpClient爬取
 //    public void getDocument(String url) {
-//        //1.生成httpclient，相当于该打开一个浏览器
 //        CloseableHttpClient httpClient = HttpClients.createDefault();
 //        CloseableHttpResponse response = null;
-//        //2.创建get请求，相当于在浏览器地址栏输入 网址
 //        HttpGet request = new HttpGet("https://music.163.com/discover/playlist");
 //
 //        List<Header> headerList = new ArrayList<>();
@@ -50,10 +48,8 @@ public class SpiderImpl {
 //        request.setHeaders(header);
 //
 //        try {
-//            //3.执行get请求，相当于在输入地址栏后敲回车键
 //            response = httpClient.execute(request);
 //
-//            //4.判断响应状态为200，进行处理
 //            if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 //                //5.获取响应内容
 //                HttpEntity httpEntity = response.getEntity();
@@ -65,7 +61,6 @@ public class SpiderImpl {
 //                BufferedWriter bfWrite = new BufferedWriter(new FileWriter(a));
 //                bfWrite.write(html);
 //            } else {
-//                //如果返回状态不是200，比如404（页面不存在）等，根据情况做处理，这里略
 //                System.out.println("返回状态不是200");
 //                System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));
 //            }
