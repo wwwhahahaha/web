@@ -82,30 +82,30 @@ export default {
     return {
       user: [],
       userSex: {
-        columns: ['性别', '总数'],
+        columns: ['性别', '比例'],
         rows: [
-          { '性别': '男', '总数': 0 },
-          { '性别': '女', '总数': 0 }
+          { '性别': '男', '比例': 0 },
+          { '性别': '女', '比例': 0 }
         ]
       },
       singerSex: {
-        columns: ['性别', '总数'],
+        columns: ['性别', '比例'],
         rows: [
-          { '性别': '男', '总数': 0 },
-          { '性别': '女', '总数': 0 }
+          { '性别': '男', '比例': 0 },
+          { '性别': '女', '比例': 0 }
         ]
       },
       country: {
-        columns: ['国家', '总数'],
+        columns: ['国家', '比例'],
         rows: [
-          { '国家': '大陆', '总数': 0 },
-          { '国家': '韩国', '总数': 0 },
-          { '国家': '台湾', '总数': 0 },
-          { '国家': '香港', '总数': 0 },
-          { '国家': '美国', '总数': 0 },
-          { '国家': '马来西亚', '总数': 0 },
-          { '国家': '西班牙', '总数': 0 },
-          { '国家': '日本', '总数': 0 }
+          { '国家': '大陆', '比例': 0 },
+          { '国家': '韩国', '比例': 0 },
+          { '国家': '台湾', '比例': 0 },
+          { '国家': '香港', '比例': 0 },
+          { '国家': '美国', '比例': 0 },
+          { '国家': '马来西亚', '比例': 0 },
+          { '国家': '西班牙', '比例': 0 },
+          { '国家': '日本', '比例': 0 }
         ]
       },
       options: {
@@ -145,15 +145,15 @@ export default {
         }
       },
       songStyle: {
-        columns: ['分格', '总数'],
+        columns: ['分格', '比例'],
         rows: [
-          { '分格': '华语', '总数': 0 },
-          { '分格': '民谣', '总数': 0 },
-          { '分格': '欧美', '总数': 0 },
-          { '分格': '流行', '总数': 0 },
-          { '分格': '轻音乐', '总数': 0 },
-          { '分格': '摇滚', '总数': 0 },
-          { '分格': '校园', '总数': 0 }
+          { '分格': '华语', '比例': 0 },
+          { '分格': '民谣', '比例': 0 },
+          { '分格': '欧美', '比例': 0 },
+          { '分格': '流行', '比例': 0 },
+          { '分格': '轻音乐', '比例': 0 },
+          { '分格': '摇滚', '比例': 0 },
+          { '分格': '校园', '比例': 0 }
         ]
       },
       userCount: 0,
@@ -172,8 +172,8 @@ export default {
     getUser () {
       this.$api.userAPI.getAllUser().then(res => {
         this.userCount = res.data.length
-        this.userSex.rows[0]['总数'] = this.setSex(1, res.data)
-        this.userSex.rows[1]['总数'] = this.setSex(0, res.data)
+        this.userSex.rows[0]['比例'] = this.setSex(1, res.data)
+        this.userSex.rows[1]['比例'] = this.setSex(0, res.data)
       })
     },
     setSex (sex, arr) {
@@ -188,7 +188,7 @@ export default {
     getCountry (val) {
       for (let item of this.country.rows) {
         if (val.includes(item['国家'])) {
-          item['总数']++
+          item['比例']++
           break
         }
       }
@@ -196,17 +196,17 @@ export default {
     getStyle (val) {
       for (let item of this.songStyle.rows) {
         if (val.includes(item['分格'])) {
-          item['总数']++
+          item['比例']++
         }
       }
     },
     getSinger () {
       this.$api.singerAPI.getAllSinger().then(res => {
         this.singerCount = res.data.length
-        this.singerSex.rows[0]['总数'] = this.setSex(1, res.data)
-        this.singerSex.rows[1]['总数'] = this.setSex(0, res.data)
+        this.singerSex.rows[0]['比例'] = this.setSex(1, res.data)
+        this.singerSex.rows[1]['比例'] = this.setSex(0, res.data)
         for (let item of res.data) {
-          this.getCountry(item.location)
+          if (item.location) { this.getCountry(item.location) }
         }
       }).catch(err => {
         console.log(err)
