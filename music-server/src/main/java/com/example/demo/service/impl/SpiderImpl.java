@@ -236,18 +236,17 @@ public class SpiderImpl {
             Integer singerId = Integer.valueOf(singerDoc.substring(singerDoc.indexOf('=') + 1));
             //String lyric=http://music.163.com/api/song/lyric?id=1435996552&lv=1&kv=1&tv=-1
             Song song = new Song();
-            song.setId(id);
             song.setName(name);
+            song.setId(id);
             song.setPic(pic);
             song.setUrl(sUrl);
             song.setSingerId(singerId);
             song.setLyric(lrc);
-            songService.addSong(song);
-            getSinger("https://music.163.com/artist/desc?id=" + singerId);
+            getSinger("https://music.163.com/artist/desc?id=" + singerId,song);
         }
     }
 
-    public void getSinger(String url) throws IOException {
+    public void getSinger(String url,Song song) throws IOException {
         Integer id= Integer.valueOf(url.substring(url.indexOf('=')+1));
         if(singerService.selectByPrimaryKey(id)) return;
 
@@ -272,6 +271,8 @@ public class SpiderImpl {
         String name=doc4.select("#artist-name").text();
         String pic=doc4.select(".n-artist.f-cb img").attr("src").split("\\?")[0]+"?param=520y520";
 
+        song.setName(song.getName()+'-'+name);
+        songService.addSong(song);
         Elements indrDoc=doc4.select(".n-artdesc");
         String indro=null;
         if(indrDoc.select("p").size()!=0) {

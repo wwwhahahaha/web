@@ -50,7 +50,7 @@
         </div>
       </el-col>
       <el-col :span="12">
-        <h3 style="margin-bottom: 20px">歌曲类型分布</h3>
+        <h3 style="margin-bottom: 20px">歌单类型分布</h3>
         <div  style="background-color: white">
           <ve-histogram :data="songStyle" :theme="options3"></ve-histogram>
         </div>
@@ -145,15 +145,15 @@ export default {
         }
       },
       songStyle: {
-        columns: ['分格', '比例'],
+        columns: ['分格', '总计'],
         rows: [
-          { '分格': '华语', '比例': 0 },
-          { '分格': '民谣', '比例': 0 },
-          { '分格': '欧美', '比例': 0 },
-          { '分格': '流行', '比例': 0 },
-          { '分格': '轻音乐', '比例': 0 },
-          { '分格': '摇滚', '比例': 0 },
-          { '分格': '校园', '比例': 0 }
+          { '分格': '华语', '总计': 0 },
+          { '分格': '民谣', '总计': 0 },
+          { '分格': '欧美', '总计': 0 },
+          { '分格': '流行', '总计': 0 },
+          { '分格': '轻音乐', '总计': 0 },
+          { '分格': '摇滚', '总计': 0 },
+          { '分格': '校园', '总计': 0 }
         ]
       },
       userCount: 0,
@@ -196,7 +196,7 @@ export default {
     getStyle (val) {
       for (let item of this.songStyle.rows) {
         if (val.includes(item['分格'])) {
-          item['比例']++
+          item['总计']++
         }
       }
     },
