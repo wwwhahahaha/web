@@ -6,6 +6,7 @@ import com.example.demo.dao.SongListMapper;
 import com.example.demo.dao.SongMapper;
 import com.example.demo.domain.Song;
 import com.example.demo.domain.SongList;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,22 +52,13 @@ class SpiderImplTest {
         //System.out.println(1);
     }
 
-//    @Test
-//    void test(){
-//        List<Song>allSongs=songMapper.allSong();
-//        for(Song a:allSongs){
-//            String b=a.getName();
-//            String c=singerMapper.selectByPrimaryKey(a.getSingerId()).getName();
-//            if(b.contains("-"))
-//                b=b.split("-")[0];
-//            String d=b+"-"+c;
-//            if(d.length()>45)
-//                d=d.substring(0,45);
-//            a.setName(d);
-//            System.out.println(a.getName());
-//            songMapper.updateSongMsg(a);
-//        }
-//        //songMapper.deleteAllSong();
-//
-//    }
+    @Test
+    void test(){
+        String salt = "admin";
+        int times = 2;  // 加密次数：2
+        String alogrithmName = "md5";   // 加密算法
+
+        String encodePassword = new SimpleHash(alogrithmName, "1111", salt, times).toString();
+        System.out.println(encodePassword);
+    }
 }

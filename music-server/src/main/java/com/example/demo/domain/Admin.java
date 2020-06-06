@@ -9,6 +9,26 @@ public class Admin {
 
     private String password;
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    private String salt;
+
+    public String getIdentify() {
+        return identify;
+    }
+
+    public void setIdentify(String identify) {
+        this.identify = identify;
+    }
+
+    private String identify;
+
     public Integer getId() {
         return id;
     }

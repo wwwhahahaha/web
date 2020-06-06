@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 
 @Service
@@ -298,9 +300,27 @@ public class SpiderImpl {
             sex=0;
         else if(indexM==-1)
             sex=1;
-
+        String country="";
         indro = indro.length() > 255 ? indro.substring(0, 255) : indro;
-
+        TreeMap<Integer,String> map=new TreeMap<Integer,String>();
+        if(indro.contains("大陆"))
+            map.put(indro.indexOf("大陆"),"大陆 ");
+        if(indro.contains("韩国"))
+        map.put(indro.indexOf("韩国"),"韩国");
+        if(indro.contains("台湾"))
+            map.put(indro.indexOf("台湾"),"台湾");
+        if(indro.contains("香港"))
+            map.put(indro.indexOf("香港"),"香港");
+        if(indro.contains("美国"))
+            map.put(indro.indexOf("美国"),"美国");
+        if(indro.contains("马来西亚"))
+            map.put(indro.indexOf("马来西亚"),"马来西亚");
+        if(indro.contains("西班牙"))
+            map.put(indro.indexOf("西班牙"),"西班牙");
+        if(indro.contains("日本"))
+            map.put(indro.indexOf("日本"),"日本");
+        if(map.size()>1)
+            country=map.firstEntry().getValue();
         Singer singer=new Singer();
         singer.setPic(pic);singer.setId(id);singer.setName(name);singer.setSex((byte) sex);singer.setIntroduction(indro);
         singerService.addSinger(singer);

@@ -1,5 +1,6 @@
 <template>
   <div class="song-audio">
+<!--    核心播放器，@timeupdate="timeupdate" 播放时间改变时调用timeupdate函数，更新CurTime值-->
     <audio :src='url' controls="controls" ref="player" preload="true"  @canplay="startPlay" @timeupdate="timeupdate" @ended="ended">
       <!--（1）属性：controls，preload（2）事件：canplay，timeupdate，ended（3）方法：play()，pause() -->
       <!--controls：向用户显示音频控件（播放/暂停/进度条/音量）-->
@@ -39,6 +40,7 @@ export default {
     }
   },
   methods: {
+    //大部分歌曲播放信息都是在这里产生，像音乐时长，当前播放时间，等等，像”this.$store.commit('setIsPlay', false)“这样的语句是向vuex提交变量，供其他地方使用
     // 开始/暂停
     togglePlay () {
       let player = this.$refs.player
@@ -60,7 +62,7 @@ export default {
     // 音乐播放时记录音乐的播放位置
     timeupdate () {
       let player = this.$refs.player
-      this.$store.commit('setCurTime', player.currentTime)
+      this.$store.commit('setCurTime', player.currentTime) //  更新vuex里面的CurTime值，使其他地方可以随时调用此值
     },
     // 音乐播放结束时触发
     ended () {

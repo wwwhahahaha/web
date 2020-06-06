@@ -27,10 +27,10 @@ public class AdminController {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
 
-        boolean res = adminService.veritypasswd(name, password);
+        Boolean res = adminService.veritypasswd(name, password);
         if (res) {
             jsonObject.put("code", 1);
-            jsonObject.put("msg", "登录成功");
+            jsonObject.put("msg", res);
             session.setAttribute("name", name);
             return jsonObject;
         } else {

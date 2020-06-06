@@ -51,6 +51,7 @@ export default {
     submitForm () {
       this.$api.adminAPI.getLoginStatus(this.ruleForm.username, this.ruleForm.password)
         .then(res => {
+          console.log(res);
           if (res.data.code === 1) {
             this.$router.push('/Info')
             this.notify('欢迎回来', 'success')

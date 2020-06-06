@@ -6,6 +6,7 @@
       </svg>
     </div>
     <div class="kongjian" >
+      <!-- @click指点击调用相应的函数，svg是显示的图标按钮     -->
       <!--上一首-->
       <div class="item" @click="prev">
         <svg class="icon" aria-hidden="true">
@@ -37,21 +38,22 @@
             <div>{{this.title}}</div>
             <div>{{this.artist}}</div>
           </div>
+          <!--下面的几块通过ref引用element-ui的p进度条-->
+          <!--进度条-->
           <div ref="progress" class="progress" @mousemove="mousemove">
-            <!--进度条-->
+            <!--子进度条，即播放进度条里面播放点左边的那一段-->
             <div ref="bg" class="bg" @click="updatemove">
               <div ref="curProgress" class="cur-progress" :style="{width: curLength+'%'}"></div>
             </div>
               <!--进度条 end -->
-            <!--拖动的点点-->
+            <!--拖动的点-->
             <div ref="idot" class="idot" :style="{left: curLength+'%'}" @mousedown="mousedown" @mouseup="mouseup"></div>
-            <!--拖动的点点 end -->
           </div>
         </div>
         <!--播放结束时间-->
         <div class="left-time">{{ songTime }}</div>
       </div>
-      <!--添加-->
+      <!--添加收藏，将用户id和歌曲id发送到后台，如果后台返回成功则收藏成功-->
       <div class="item" @click="collection">
         <el-button plain style="border: 0;">
           <svg class="icon" aria-hidden="true">
@@ -143,13 +145,14 @@ export default {
       this.$api.songAPI.download(this.url)
         .then(res => {
           let content = res.data
+          //  创建一个下载超链
           var eleLink = document.createElement('a')
           eleLink.download = `${this.artist}-${this.title}.mp3`
           eleLink.style.display = 'none'
-          // 字符内容转变成blob地址
+          // 歌曲链接返回的字符内容转变成blob媒体形式
           var blob = new Blob([content])
           eleLink.href = URL.createObjectURL(blob)
-          // 触发点击
+          // 创建链接点击来实现下载
           document.body.appendChild(eleLink)
           eleLink.click()
           // 然后移除
@@ -171,7 +174,7 @@ export default {
         this.$store.commit('setIsPlay', true)
       }
     },
-    // 解析播放时间
+    // 将歌曲已经播放的value秒数解析为时：分：秒的形式
     formatSeconds (value) {
       let theTime = parseInt(value)
       let theTime1 = 0
@@ -220,7 +223,7 @@ export default {
     mouseup () {
       this.tag = false
     },
-    // 拖拽中
+    // 拖拽中，计算拖拽距离的百分比，计算出拖拽后歌曲播放的时间
     mousemove (e) {
       if (!this.duration) {
         return false
@@ -259,7 +262,7 @@ export default {
         this.changeTime(newPercent)
       }
     },
-    // 上一首
+    // 上一首 改变播放列表里正在播放歌曲的下标
     prev () {
       if (this.listIndex !== -1 && this.listOfSongs.length > 1) {
         if (this.listIndex > 0) {
@@ -297,6 +300,7 @@ export default {
     goPlayerPage () {
       this.$router.push({path: `/lyric/${this.id}`})
     },
+    //  向后台发送要收藏的用id和歌曲id，如果后台反馈成功，则收藏成功。
     collection () {
       if (this.loginIn) {
         // 0 代表歌曲， 1 代表歌单
